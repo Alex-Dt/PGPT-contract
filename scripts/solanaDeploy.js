@@ -1,8 +1,6 @@
-import {
-    setTimeout,
-  } from 'node:timers/promises';
+import { setTimeout } from "node:timers/promises";
 import "dotenv/config";
-import { clusterApiUrl, Connection, Keypair, PublicKey } from "@solana/web3.js";
+import { clusterApiUrl, Connection, Keypair } from "@solana/web3.js";
 import {
   createMint,
   getOrCreateAssociatedTokenAccount,
@@ -81,8 +79,7 @@ console.log(`Minted tokens to ${tokenAccount.address.toBase58()}`);
 
 // Start token metadata
 
-await setTimeout(10000); // wait a lillte bit 
-
+await setTimeout(10000); // wait a lillte bit
 
 const umi = createUmi(clusterApiUrl(network));
 
