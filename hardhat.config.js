@@ -4,7 +4,7 @@ require("dotenv").config();
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: {
-    version: "0.8.19",
+    version: "0.8.24",
     settings: {
       viaIR: true,
       optimizer: {
@@ -15,7 +15,7 @@ module.exports = {
   },
   networks: {
     sepolia: {
-      url: 'https://rpc.sepolia.dev',
+      url: 'https://rpc.sepolia.org',
       accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
   },

@@ -8,15 +8,13 @@ const hre = require("hardhat");
 const { setTimeout } = require("node:timers/promises");
 
 async function main() {
-  const PGPT = await hre.ethers.getContractFactory("PGPT");
-  const pgpt = await PGPT.PGPT();
+  const pgpt = await hre.ethers.deployContract("PGPT");
+  await pgpt.waitForDeployment();
 
-  await pgpt.deployed();
-
-  console.log("PGPT deployed to:", pgpt.address);
+  console.log("PGPT deployed to:", pgpt.target);
   await setTimeout(30000); //30 sec
-  const result = await run("verify:verify", {
-    address: pgpt.address,
+  const result = await hre.run("verify:verify", {
+    address: pgpt.target,
   });
   console.log(result);
 }

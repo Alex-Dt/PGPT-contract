@@ -5,9 +5,7 @@ describe("PGPT Token", function () {
   let pgptT;
 
   before(async function () {
-    const PgptT = await ethers.getContractFactory("PGPT");
-    pgptT = await PgptT.deploy();
-    await pgptT.deployed();
+    pgptT = await ethers.deployContract("PGPT");
   });
 
   it("Should return name", async function () {
@@ -35,5 +33,25 @@ describe("PGPT Token", function () {
     expect(await pgptT.balanceOf(owner.address)).to.equal(
       99_000_000n * 10n ** BigInt(decimals)
     );
+  });
+
+  it("Should have ability to mint tokens ", async function () {
+    const [owner] = await ethers.getSigners();
+    const decimals = await pgptT.decimals();
+    await pgptT.mint(owner.address, 1_000_000n * 10n ** BigInt(decimals));
+
+    expect(await pgptT.balanceOf(owner.address)).to.equal(
+      100_000_000n * 10n ** BigInt(decimals)
+    );
+  });
+
+  it("Should have NO ability to mint tokens for non owner", async function () {
+    const [owner, secondUser] = await ethers.getSigners();
+    const decimals = await pgptT.decimals();
+    await expect(
+      pgptT
+        .connect(secondUser)
+        .mint(owner.address, 1_000_000n * 10n ** BigInt(decimals))
+    ).to.be.reverted;
   });
 });
