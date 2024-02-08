@@ -1,3 +1,6 @@
+import {
+    setTimeout,
+  } from 'node:timers/promises';
 import "dotenv/config";
 import { clusterApiUrl, Connection, Keypair, PublicKey } from "@solana/web3.js";
 import {
@@ -78,45 +81,41 @@ console.log(`Minted tokens to ${tokenAccount.address.toBase58()}`);
 
 // Start token metadata
 
-// const mplProgramId = new PublicKey(
-//   "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
-// );
-// const [metadata] = PublicKey.findProgramAddressSync(
-//   [Buffer.from("metadata"), mplProgramId.toBytes(), mint.toBytes()],
-//   mplProgramId
-// );
+await setTimeout(10000); // wait a lillte bit 
 
-// const umi = createUmi(clusterApiUrl(network));
 
-// const keypairUMI = fromWeb3JsKeypair(keyPair);
-// const signer = createSignerFromKeypair(umi, keypairUMI);
-// umi.identity = signer;
-// umi.payer = signer;
+const umi = createUmi(clusterApiUrl(network));
 
-// const createMetadataAccountV3Args = {
-//   metadata: fromWeb3JsPublicKey(metadata),
-//   mint: fromWeb3JsPublicKey(mint),
-//   mintAuthority: signer,
-//   payer: signer,
-//   updateAuthority: fromWeb3JsPublicKey(keyPair.publicKey),
-//   data: {
-//     name: "PGTP",
-//     symbol: "PGPT",
-//     uri: "https://d104dsv7eh0zru.cloudfront.net/solana/pgpt.json",
-//     sellerFeeBasisPoints: 0,
-//     creators: null,
-//     collection: null,
-//     uses: null,
-//   },
-//   isMutable: false,
-//   collectionDetails: null,
-// };
+const keypairUMI = fromWeb3JsKeypair(keyPair);
+const signer = createSignerFromKeypair(umi, keypairUMI);
+umi.identity = signer;
+umi.payer = signer;
 
-// console.log(createMetadataAccountV3Args);
+const createMetadataAccountV3Args = {
+  mint: fromWeb3JsPublicKey(mint),
+  mintAuthority: signer,
+  payer: signer,
+  updateAuthority: fromWeb3JsPublicKey(keyPair.publicKey),
+  data: {
+    name: "PGTP",
+    symbol: "PGPT",
+    uri: "https://d104dsv7eh0zru.cloudfront.net/solana/pgpt_1.json",
+    sellerFeeBasisPoints: 0,
+    creators: null,
+    collection: null,
+    uses: null,
+  },
+  isMutable: false,
+  collectionDetails: null,
+};
 
-// const instruction = createMetadataAccountV3(umi, createMetadataAccountV3Args);
+console.log(createMetadataAccountV3Args);
 
-// const transaction = await instruction.buildAndSign(umi);
+const instruction = createMetadataAccountV3(umi, createMetadataAccountV3Args);
 
-// const transactionSignature = await umi.rpc.sendTransaction(transaction);
+const transaction = await instruction.buildAndSign(umi);
+
+const transactionSignature = await umi.rpc.sendTransaction(transaction);
+
+console.log("Token metadata is ready");
 // console.log(`Transaction signature, ${transactionSignature}`);
