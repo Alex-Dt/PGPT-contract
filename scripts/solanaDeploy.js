@@ -97,7 +97,7 @@ const createMetadataAccountV3Args = {
   payer: signer,
   updateAuthority: fromWeb3JsPublicKey(keyPair.publicKey),
   data: {
-    name: "PGTP",
+    name: "PGPT",
     symbol: "PGPT",
     uri: "https://d104dsv7eh0zru.cloudfront.net/solana/pgpt_1.json",
     sellerFeeBasisPoints: 0,
