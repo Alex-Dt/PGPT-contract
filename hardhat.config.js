@@ -18,6 +18,10 @@ module.exports = {
       url: 'https://rpc.sepolia.org',
       accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
+    bnb: {
+      url: 'https://bsc-dataseed1.binance.org',
+      accounts: process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    }
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
