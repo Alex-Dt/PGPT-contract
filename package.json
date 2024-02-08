@@ -1,15 +1,22 @@
 {
   "name": "pgpt-token",
+  "type": "module",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "hardhat": "^2.14.0"
   },
   "scripts": {
     "test": "hardhat test",
-    "compile": "hardhat compile"
+    "compile": "hardhat compile",
+    "solana": "node scripts/solanaDeploy.js"
   },
   "dependencies": {
+    "@metaplex-foundation/mpl-token-metadata": "^3.2.0",
+    "@metaplex-foundation/umi": "^0.9.1",
+    "@metaplex-foundation/umi-bundle-defaults": "^0.9.1",
     "@openzeppelin/contracts": "^5.0.0",
+    "@solana/spl-token": "^0.4.0",
+    "@solana/web3.js": "^1.90.0",
     "dotenv": "^16.0.3"
   }
 }
