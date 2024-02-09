@@ -96,7 +96,7 @@ const createMetadataAccountV3Args = {
   data: {
     name: "PGPT",
     symbol: "PGPT",
-    uri: "https://d104dsv7eh0zru.cloudfront.net/solana/pgpt_1.json",
+    uri: "https://d3a0y6a5jmtj4v.cloudfront.net/moon/pgpt_1.json",
     sellerFeeBasisPoints: 0,
     creators: null,
     collection: null,
