@@ -72,7 +72,7 @@ const mintRes = await mintTo(
   mint,
   tokenAccount.address,
   keyPair,
-  100_000_000n * 10n ** BigInt(decimals)
+  33_333_333n * 10n ** BigInt(decimals)
 );
 
 console.log(`Minted tokens to ${tokenAccount.address.toBase58()}`);
