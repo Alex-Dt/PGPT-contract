@@ -96,7 +96,7 @@ const createMetadataAccountV3Args = {
   data: {
     name: "PrivateAI.com",
     symbol: "PGPT",
-    uri: "https://d3a0y6a5jmtj4v.cloudfront.net/moon/pgpt_1.json",
+    uri: "https://token.privateai.com/pgpt/pgpt_meta.json",
     sellerFeeBasisPoints: 0,
     creators: null,
     collection: null,
