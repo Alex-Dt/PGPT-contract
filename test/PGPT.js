@@ -56,4 +56,12 @@ describe("PGPT Token", function () {
         .mint(owner.address, 1_000_000n * 10n ** BigInt(decimals))
     ).to.be.reverted;
   });
+
+  it("Should have NO ability to mint tokens for more then 100M", async function () {
+    const [owner] = await ethers.getSigners();
+    const decimals = await pgptT.decimals();
+    await expect(
+      pgptT.mint(owner.address, 70_000_000n * 10n ** BigInt(decimals))
+    ).to.be.reverted;
+  });
 });
