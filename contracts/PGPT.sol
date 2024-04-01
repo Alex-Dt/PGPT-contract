@@ -9,7 +9,7 @@ contract PGPT is ERC20, ERC20Burnable, Ownable {
     uint256 private constant MAX_SUPPLY = 100_000_000 * 10**6; // 100 million tokens, assuming 6 decimals
 
     constructor() ERC20("PrivateAI.com", "PGPT") Ownable(msg.sender) {
-        _mint(msg.sender, 100_000_000 * 10**decimals());
+        _mint(msg.sender, 33_333_333 * 10**decimals()); // Minting 33,333,333 tokens per chain
     }
 
     function decimals() public view virtual override returns (uint8) {
