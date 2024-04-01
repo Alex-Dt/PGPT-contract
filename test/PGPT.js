@@ -11,7 +11,7 @@ describe("PGPT Token", function () {
   });
 
   it("Should return name", async function () {
-    expect(await pgptT.name()).to.equal("PGPT");
+    expect(await pgptT.name()).to.equal("PrivateAI.com");
     expect(await pgptT.symbol()).to.equal("PGPT");
   });
 

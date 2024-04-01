@@ -94,7 +94,7 @@ const createMetadataAccountV3Args = {
   payer: signer,
   updateAuthority: fromWeb3JsPublicKey(keyPair.publicKey),
   data: {
-    name: "PGPT",
+    name: "PrivateAI.com",
     symbol: "PGPT",
     uri: "https://d3a0y6a5jmtj4v.cloudfront.net/moon/pgpt_1.json",
     sellerFeeBasisPoints: 0,
