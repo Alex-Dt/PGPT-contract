@@ -6,6 +6,7 @@ import {
   getOrCreateAssociatedTokenAccount,
   mintTo,
 } from "@solana/spl-token";
+import bs58 from "bs58";
 
 import { createMetadataAccountV3 } from "@metaplex-foundation/mpl-token-metadata";
 import {
@@ -39,7 +40,14 @@ const hexPrivateKey = Uint8Array.from(
   Buffer.from(process.env.SOLANA_PRIVATE_KEY, "hex")
 );
 
-const keyPair = Keypair.fromSecretKey(hexPrivateKey);
+let keyPair;
+
+try {
+  keyPair = Keypair.fromSecretKey(hexPrivateKey);
+} catch (e) {
+  console.error("looks like your private key is not HEX. Trying as base58");
+  keyPair = Keypair.fromSecretKey(bs58.decode(process.env.SOLANA_PRIVATE_KEY));
+}
 
 console.log(
   `You going to use this account to deploy your contract: ${keyPair.publicKey.toBase58()}`
