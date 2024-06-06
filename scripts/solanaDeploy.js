@@ -55,35 +55,60 @@ console.log(
 
 const decimals = 9; // We are using 9 to match the CLI decimal default exactly
 
-const mint = await createMint(
-  connection,
-  keyPair,
-  keyPair.publicKey,
-  keyPair.publicKey,
-  decimals
-);
+let mint;
+
+while (!mint) {
+  try {
+    mint = await createMint(
+      connection,
+      keyPair,
+      keyPair.publicKey,
+      keyPair.publicKey,
+      decimals
+    );
+  } catch (e) {
+    console.error("failed to create mint", e);
+    console.log("By we are going to retry mint ");
+  }
+}
 
 console.log(`New token deployed ${mint.toBase58()}`);
 
-await setTimeout(10000); // wait a lillte bit
+let tokenAccount;
 
-const tokenAccount = await getOrCreateAssociatedTokenAccount(
-  connection,
-  keyPair,
-  mint,
-  keyPair.publicKey
-);
+while (!tokenAccount) {
+  try {
+    tokenAccount = await getOrCreateAssociatedTokenAccount(
+      connection,
+      keyPair,
+      mint,
+      keyPair.publicKey
+    );
+  } catch (e) {
+    console.error("failed to get/CREATE associated token account", e);
+    console.log("By we are going to retry it ");
+  }
+}
 
 console.log(`Associated token account: ${tokenAccount.address.toBase58()}`);
 
-const mintRes = await mintTo(
-  connection,
-  keyPair,
-  mint,
-  tokenAccount.address,
-  keyPair,
-  33_333_333n * 10n ** BigInt(decimals)
-);
+let mintRes;
+
+while (!mintRes) {
+  try {
+    mintRes = await mintTo(
+      connection,
+      keyPair,
+      mint,
+      tokenAccount.address,
+      keyPair,
+      33_333_333n * 10n ** BigInt(decimals)
+    );
+  } catch (e) {
+    console.error("failed to mint tokens", e);
+    console.log("By we are going to retry mint to ");
+  }
+}
 
 console.log(`Minted tokens to ${tokenAccount.address.toBase58()}`);
 
@@ -120,9 +145,19 @@ console.log(createMetadataAccountV3Args);
 
 const instruction = createMetadataAccountV3(umi, createMetadataAccountV3Args);
 
-const transaction = await instruction.buildAndSign(umi);
 
-const transactionSignature = await umi.rpc.sendTransaction(transaction);
+let transactionSignature ;
+
+while (!transactionSignature) {
+  try {
+    const transaction = await instruction.buildAndSign(umi);
+
+    transactionSignature = await umi.rpc.sendTransaction(transaction);
+  } catch (e) {
+    console.error("failed to send transaction", e);
+    console.log("By we are going to retry it ");
+  }
+}
 
 console.log("Token metadata is ready");
 // console.log(`Transaction signature, ${transactionSignature}`);
