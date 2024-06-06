@@ -65,6 +65,8 @@ const mint = await createMint(
 
 console.log(`New token deployed ${mint.toBase58()}`);
 
+await setTimeout(10000); // wait a lillte bit
+
 const tokenAccount = await getOrCreateAssociatedTokenAccount(
   connection,
   keyPair,
